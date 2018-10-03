@@ -1,0 +1,803 @@
+{
+	"info": {
+		"_postman_id": "5bbad16f-cc07-4c5b-85c5-090a4ebfdadf",
+		"name": "Todoist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "6. Get active Tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6c5b3cc-829d-4305-ba5f-fe01e447be1f",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"",
+									"describe(\"testing\", () =>{",
+									"",
+									"    it(\"Validate 200\", () =>{",
+									"        expect(pm.response.to.have.status(200))",
+									"    ",
+									"    });",
+									"    ",
+									"    it('should return a JSON response', () => {",
+									"     response.should.be.json;",
+									"    });",
+									"    ",
+									"    ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://beta.todoist.com/API/v8/tasks",
+							"protocol": "https",
+							"host": [
+								"beta",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"API",
+								"v8",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7. Create a new Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "05709803-24cf-4b56-aed0-df35a55162e0",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"pm.environment.set(\"Taskid\", response.body.id);",
+									"",
+									"describe(\"testing\", () =>{",
+									"",
+									"    it(\"Validate 200\", () =>{",
+									"        expect(pm.response.to.have.status(200))",
+									"    ",
+									"    });",
+									"    ",
+									"    it('should return a JSON response', () => {",
+									"     response.should.be.json;",
+									"    });",
+									"    ",
+									"    ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"content\": \"New Task\", \"due_string\": \"tomorrow at 2:00\", \"due_lang\": \"en\", \"priority\": 4}"
+						},
+						"url": {
+							"raw": "https://beta.todoist.com/API/v8/tasks",
+							"protocol": "https",
+							"host": [
+								"beta",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"API",
+								"v8",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "8. Get a Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "438cb3c4-3820-4fba-8981-c5f2cc02234c",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e260c6fd-e66f-4e5f-ad64-0b6d67a3d0db",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"",
+									"describe(\"testing\", () =>{",
+									"",
+									" ",
+									"    ",
+									"    it(\"Validate 200\", () =>{",
+									"        expect(pm.response.to.have.status(200))",
+									"    ",
+									"    });",
+									"    ",
+									"    it(\"Validate not 400\", () =>{",
+									"        expect(pm.response.to.not.have.status(400))",
+									"    });",
+									"    ",
+									"    it(\"Validate string\", () =>{",
+									"         expect(pm.environment.get(\"name\")).to.be.a('string');",
+									"    });",
+									"    ",
+									"});",
+									"    "
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://beta.todoist.com/API/v8/tasks/{{Taskid}}",
+							"protocol": "https",
+							"host": [
+								"beta",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"API",
+								"v8",
+								"tasks",
+								"{{Taskid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "9. Update a task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2253bdd4-5b6e-4a8e-bc5d-6c6b4111a312",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"",
+									"",
+									"describe(\"Testing\", () =>{",
+									"",
+									"  ",
+									"    ",
+									"    it('should not return a JSON response', () => {",
+									"    response.should.not.be.json;",
+									"    });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"content\": \"Movies to watchou\"}"
+						},
+						"url": {
+							"raw": "https://beta.todoist.com/API/v8/tasks/{{Taskid}}",
+							"protocol": "https",
+							"host": [
+								"beta",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"API",
+								"v8",
+								"tasks",
+								"{{Taskid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10. Close a task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dec9a3c9-1fbe-4cb2-89a4-c902c53cfbda",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"",
+									"",
+									"describe(\"Testing\", () =>{",
+									"",
+									"  ",
+									"    ",
+									"    it(\"Validate 204\", () =>{",
+									"        expect(pm.response.to.have.status(204))",
+									"    ",
+									"    });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://beta.todoist.com/API/v8/tasks/{{Taskid}}/close",
+							"protocol": "https",
+							"host": [
+								"beta",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"API",
+								"v8",
+								"tasks",
+								"{{Taskid}}",
+								"close"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "11. Reopen a task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://beta.todoist.com/API/v8/tasks/{{Taskid}}/reopen",
+							"protocol": "https",
+							"host": [
+								"beta",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"API",
+								"v8",
+								"tasks",
+								"{{Taskid}}",
+								"reopen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "12. Delete Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37503186-9513-464e-8afb-f752d931d3fa",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"",
+									"",
+									"describe(\"Testing\", () =>{",
+									"",
+									"  ",
+									"    ",
+									"    it(\"Validate 204\", () =>{",
+									"        expect(pm.response.to.have.status(204))",
+									"    ",
+									"    });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://beta.todoist.com/API/v8/tasks/{{Taskid}}",
+							"protocol": "https",
+							"host": [
+								"beta",
+								"todoist",
+								"com"
+							],
+							"path": [
+								"API",
+								"v8",
+								"tasks",
+								"{{Taskid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "1. Get all projects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1e391728-4553-4d75-a2f0-0aa028424211",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"",
+									"describe(\"Testing\", () =>{",
+									"",
+									"    it(\"should return a 200 response\", () =>{",
+									"        expect(pm.response.to.have.status(200))",
+									"    ",
+									"    });",
+									"    ",
+									"    it(\"should NOT return a 400 response\", () =>{",
+									"        expect(pm.response.to.not.have.status(400))",
+									"    });",
+									"    ",
+									"    it('should return a JSON response', () => {",
+									"     response.should.be.json;",
+									"    });",
+									"    ",
+									"    ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{baseURL}}API/v8/projects",
+							"host": [
+								"{{baseURL}}API"
+							],
+							"path": [
+								"v8",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Create a new Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "39b741ac-5f4f-4144-a87d-c1e291b99663",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"",
+									"describe(\"Testing\", () =>{",
+									"",
+									"    it(\"should return a 200 response\", () =>{",
+									"        expect(pm.response.to.have.status(200))",
+									"    ",
+									"    });",
+									"    ",
+									"    it(\"should NOT return a 400 response\", () =>{",
+									"        expect(pm.response.to.not.have.status(400))",
+									"    });",
+									"    ",
+									"    it('should return a JSON response', () => {",
+									"     response.should.be.json;",
+									"    });",
+									"    ",
+									"    it('should return the correct customer', () => {",
+									"    response.body.should.have.property('name', \"Veracruz\");",
+									"    });",
+									"    ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n\t\"name\": \"Veracruz\"\n\t\n}"
+						},
+						"url": {
+							"raw": "{{baseURL}}API/v8/projects",
+							"host": [
+								"{{baseURL}}API"
+							],
+							"path": [
+								"v8",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get a Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9e0b417e-ec8b-4da4-adee-202ea7e636c1",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"pm.environment.set(\"name\", response.body.name);",
+									"const name = \"Veracruz\"",
+									"",
+									"describe(\"testing\", () =>{",
+									"",
+									"    it(\"Validate name\", () =>{",
+									"        expect(pm.environment.get(\"name\")).to.equals(name);",
+									"    });",
+									"    ",
+									"    ",
+									"    it(\"Validate 200\", () =>{",
+									"        expect(pm.response.to.have.status(200))",
+									"    ",
+									"    });",
+									"    ",
+									"    it(\"Validate not 400\", () =>{",
+									"        expect(pm.response.to.not.have.status(400))",
+									"    });",
+									"    ",
+									"     it(\"Validate lenght\", () =>{",
+									"         expect(pm.environment.get(\"name\")).to.equals(name).lengthOf(8);",
+									"    });",
+									"    ",
+									"    it(\"Validate string\", () =>{",
+									"         expect(pm.environment.get(\"name\")).to.be.a('string');",
+									"    });",
+									"    ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n\t\"name\": \"Veracruz\"\n\t\n}"
+						},
+						"url": {
+							"raw": "{{baseURL}}API/v8/projects/{{Projectid}}",
+							"host": [
+								"{{baseURL}}API"
+							],
+							"path": [
+								"v8",
+								"projects",
+								"{{Projectid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Update Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8f1baa58-37ed-4b14-8645-339a828a27b9",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"",
+									"",
+									"describe(\"Testing\", () =>{",
+									"",
+									"  ",
+									"    ",
+									"    it(\"Validate 200\", () =>{",
+									"        expect(pm.response.to.have.status(204))",
+									"    ",
+									"    });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Veracruz\"}'"
+						},
+						"url": {
+							"raw": "{{baseURL}}API/v8/projects/{{Projectid}}",
+							"host": [
+								"{{baseURL}}API"
+							],
+							"path": [
+								"v8",
+								"projects",
+								"{{Projectid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Delete Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "93e4d9a2-2d76-43d1-8d08-0bc97761f45a",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"",
+									"",
+									"describe(\"Testing\", () =>{",
+									"",
+									"  ",
+									"    ",
+									"    it('should not return a JSON response', () => {",
+									"    response.should.not.be.json;",
+									"    });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseURL}}API/v8/projects/{{Projectid}}",
+							"host": [
+								"{{baseURL}}API"
+							],
+							"path": [
+								"v8",
+								"projects",
+								"{{Projectid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "0. Configuration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0723c2ea-d175-43a7-a78a-0851a720a3ff",
+						"type": "text/javascript",
+						"exec": [
+							"postman.setGlobalVariable('postmanBDD', responseBody);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://bigstickcarpet.com/postman-bdd/dist/postman-bdd.min.js",
+					"protocol": "http",
+					"host": [
+						"bigstickcarpet",
+						"com"
+					],
+					"path": [
+						"postman-bdd",
+						"dist",
+						"postman-bdd.min.js"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
